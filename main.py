@@ -5,11 +5,12 @@ import argparse
 
 # Set up argument parsing
 parser = argparse.ArgumentParser(description='Enter Any of the following arguments to continue.')
-parser.add_argument('-u', '--url', help='Enter the URL of target')
+parser.add_argument('-u', '--url', help='Enter the URL of target and use FUZZ on the path to fuzz')
 parser.add_argument('-w', '--wordlistPath', help='Enter path to custom wordlist')
 parser.add_argument('-c', '--cookies', help='Enter Custom cookies to use')
 parser.add_argument('-hs', '--headers', help='Enter your Custom request header/headers separated by comma', required=False)
 parser.add_argument('-mc', '--statusCode', help='Enter Request status to match', required=False)
+parser.add_argument('-ms', '--ContentLength', help='Enter Content length to match', required=False)
 parser.add_argument('-pr', '--proxies', help='Enter Custom Proxies', required=False)
 
 args = parser.parse_args()
