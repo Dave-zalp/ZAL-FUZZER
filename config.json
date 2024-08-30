@@ -1,7 +1,7 @@
 {
     "OptionalArguments": {
-        "url": "https://google.com",
-        "wordlistPath": "drd/ins.txt",
+        "url": "https://zalparus.hashnode.dev",
+        "wordlistPath": "secret/bypass.txt",
         "Timeout": 10,
         "threads": 20
     },
@@ -13,7 +13,7 @@
         "FollowRedirects": 0
     },
     "MatchArguments": {
-        "statusCode": "200",
+        "statusCode": "200,404",
         "ContentLength": ""
     }
 }

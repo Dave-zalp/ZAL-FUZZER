@@ -1,3 +1,5 @@
+import time
+
 RED = "\33[91m"
 BLUE = "\33[94m"
 GREEN = "\033[32m"
@@ -22,5 +24,6 @@ def print_banner():
                 
                 """
      print(banner)
+     time.sleep(2)
 
 

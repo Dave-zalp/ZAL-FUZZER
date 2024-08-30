@@ -1,7 +1,10 @@
 import json
 import logging
+import time
+
 from Src import banner
 import argparse
+from Src import fuzz
 
 # Set up argument parsing
 parser = argparse.ArgumentParser(description='Enter Any of the following arguments to continue.')
@@ -41,6 +44,7 @@ def main():
 
     logger.info(f'-->{YELLOW}Method                             :{GREEN}GET{END}')
     logger.info(f'{YELLOW}+----------------------------------------------------------------------------------------------+{END}\n')
+    time.sleep(2)
 
     # Load the configuration file
     try:
@@ -61,6 +65,10 @@ def main():
             with open('config.json', 'w') as config_file:
                 json.dump(config_data, config_file, indent=4)
             logger.info(f"{GREEN}Config file updated successfully.{END}")
+
+            # Initialize the fuzzer engine
+            fuzzer = fuzz.FuzzerEngine()
+
         else:
             logger.info(f"{YELLOW}No matching keys found in the config file.{END}")
 
