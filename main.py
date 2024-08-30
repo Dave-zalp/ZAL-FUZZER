@@ -11,6 +11,7 @@ parser.add_argument('-c', '--cookies', help='Enter Custom cookies to use')
 parser.add_argument('-hs', '--headers', help='Enter your Custom request header/headers separated by comma', required=False)
 parser.add_argument('-mc', '--statusCode', help='Enter Request status to match', required=False)
 parser.add_argument('-ms', '--ContentLength', help='Enter Content length to match', required=False)
+parser.add_argument('-th', '--threads', help='Enter Number of Threads', required=False)
 parser.add_argument('-pr', '--proxies', help='Enter Custom Proxies', required=False)
 
 args = parser.parse_args()

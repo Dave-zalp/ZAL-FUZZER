@@ -2,7 +2,8 @@
     "OptionalArguments": {
         "url": "https://google.com",
         "wordlistPath": "drd/ins.txt",
-        "Timeout": "10"
+        "Timeout": 10,
+        "threads": 20
     },
     "HttpArguments": {
         "method": "GET",
