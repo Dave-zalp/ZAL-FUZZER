@@ -30,7 +30,7 @@ class FuzzerEngine():
         try:
             logger.info("[+] Initializing a sample test request")
             time.sleep(3)
-            r = requests.request(method='GET', url="https://google.com", headers=self.headers, cookies=self.cookies,proxies=self.proxies,timeout=self.Timeout)
+            r = requests.request(method=self.method, url="https://google.com", headers=self.headers, cookies=self.cookies,proxies=self.proxies,timeout=self.Timeout)
             print(r.status_code)
         except requests.exceptions.RequestException:
             logger.error("[-] There was an issue with your request options. check the documentation and try again")

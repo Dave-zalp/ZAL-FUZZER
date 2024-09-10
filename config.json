@@ -3,17 +3,17 @@
         "url": "https://futo.edu.ng",
         "wordlistPath": "drd/ins.txt",
         "Timeout": 10,
-        "threads": 20
+        "threads": 20,
+        "method": "GET"
     },
     "HttpArguments": {
-        "method": "GET",
-        "cookies": "{}",
-        "headers": "{}",
-        "proxies": "{}",
+        "cookies": null,
+        "headers": "{'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'}",
+        "proxies": null,
         "FollowRedirects": 0
     },
     "MatchArguments": {
-        "statusCode": "200",
+        "statusCode": "400",
         "ContentLength": ""
     }
 }

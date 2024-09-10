@@ -30,9 +30,13 @@ END = "\033[0m"
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger()
 
+
 def main():
+
     # Filter out arguments that are not None
-    set_args = {k: v for k, v in args_dict.items() if v is not None}
+    set_args = {k: v for k, v in args_dict.items() if v not in (None, '{}', [], '', ())}
+
+    print(set_args)
 
     # Print the banner and the arguments
     banner.print_banner()
