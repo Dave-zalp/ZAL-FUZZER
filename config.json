@@ -1,19 +1,19 @@
 {
     "RequiredArguments": {
-        "url": "https://google.com",
-        "wordlistPath": "secret/bypass.txt",
+        "url": "https://futo.edu.ng",
+        "wordlistPath": "drd/ins.txt",
         "Timeout": 10,
         "threads": 20
     },
     "HttpArguments": {
         "method": "GET",
-        "cookies": "",
-        "headers": "",
-        "proxies": "",
+        "cookies": "{}",
+        "headers": "{}",
+        "proxies": "{}",
         "FollowRedirects": 0
     },
     "MatchArguments": {
-        "statusCode": "200,404",
+        "statusCode": "200",
         "ContentLength": ""
     }
 }
