@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser(description='Enter Any of the following argumen
 parser.add_argument('-u', '--url', help='Enter the URL of target and use FUZZ on the path to fuzz')
 parser.add_argument('-w', '--wordlistPath', help='Enter path to custom wordlist')
 parser.add_argument('-c', '--cookies', help='Cookies in JSON format', default='{}', required=False)
-parser.add_argument('-hs', '--headers', help='Headers in JSON format', default='{}', required=False)
+parser.add_argument('-hs', '--headers', help='Headers in JSON format', default={}, required=False)
 parser.add_argument('-mc', '--statusCode', help='Enter Request status to match', required=False)
 parser.add_argument('-ms', '--ContentLength', help='Enter Content length to match', required=False)
 parser.add_argument('-th', '--threads', help='Enter Number of Threads', required=False)
@@ -34,7 +34,7 @@ logger = logging.getLogger()
 def main():
 
     # Filter out arguments that are not None
-    set_args = {k: v for k, v in args_dict.items() if v not in (None, '{}', [], '', ())}
+    set_args = {k: v for k, v in args_dict.items() if v not in (None, '{}', {}, [], '', ())}
 
     print(set_args)
 
@@ -71,7 +71,6 @@ def main():
             logger.info(f"{GREEN}Config file updated successfully.{END}")
 
 
-# USE SOME SORT OF MIDDLEWARE TO VALIDATE CLI COMMANDS AND THEN RUN A TEST REQUEST TO CHECK IF ALL THINGS ARE SET, IF NOT, THEY SHOULD BE A CALLBACK TO STOP THE SCRIPT EXECUTION AND PROMPT THE USER TO VALIDATE ARGUMENTS AND
 
 
             # Initialize the fuzzer engine
