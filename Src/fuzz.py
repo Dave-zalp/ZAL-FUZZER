@@ -47,5 +47,9 @@ class FuzzerEngine():
             logger.info("[+] Initializing a sample test request")
             time.sleep(3)
             r = requests.request(method=self.method, url="https://google.com", headers=self.headers, cookies=self.cookies,proxies=self.proxies,timeout=self.Timeout)
+            if r.status_code not in {200, 201, 204}:
+                logger.warning(["<> Request headers might not be set successfully"])
+            else:
+                logger.info("[+] Request headers set successfully ")
         except requests.exceptions.RequestException:
             logger.error("[-] There was an issue with your request options. check the documentation and try again")
