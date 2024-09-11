@@ -9,6 +9,7 @@
 
 ```bash
 git clone https://github.com/Dave-zalp/ZAL-FUZZER.git
+pip install requirements.txt
 python main.py -u https://google.com -w secret/fuzz.txt -mc 200,404
 ```
 
