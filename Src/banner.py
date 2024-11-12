@@ -19,6 +19,7 @@ def print_banner():
                 ╚══════╝╚═╝  ╚═╝╚══════╝ ╚═╝      ╚═════╝ ╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝
                 
                                   An Automatic Web Fuzzer.
+                                  Zalparus Dev
                                   Made by https://t.me/moratadave
                                                                                           
                 
