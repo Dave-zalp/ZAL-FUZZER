@@ -1,9 +1,10 @@
 import json
 import os
 import logging
+import sys
 import time
 from Src import banner
-from Src import test
+from Src import test,fuzz
 import argparse
 
 # Define color codes for logging
@@ -26,19 +27,24 @@ def main():
     # Set up argument parsing
     parser = argparse.ArgumentParser(description="ZALPARUS Web Fuzzer Configuration")
     parser.add_argument('-u', '--url', help='Enter the URL of target and use FUZZ on the path to fuzz', dest='url')
-    parser.add_argument('-w', '--wordlistPath', help='Enter path to custom wordlist', dest='wordlistPath')
+    parser.add_argument('-w', '--wordlistPath', help='File to Custom wordlist', dest='wordlistPath')
+    parser.add_argument('-e', '--encode', help='Encode your payloads (b64) ', dest='encode')
     parser.add_argument('-mc', '--statusCode', default="GET", help='Enter Request status to match', dest='statusCode',
                         required=False)
     parser.add_argument('-ms', '--ContentLength', help='Enter Content length to match', dest='ContentLength',
                         required=False)
     parser.add_argument('-th', '--threads', default="10", help='Enter Number of Threads', dest='threads',
                         required=False)
+    parser.add_argument('-H', '--headers', help='Enter Request Headers', dest='headers',
+                        required=False)
+    parser.add_argument('-C', '--cookies', help='Enter Request Cookies', dest='Cookies',
+                        required=False)
 
     # Parse arguments
     args = parser.parse_args()
 
     url = args.url
-    wordlist = os.path.abspath(args.wordlistPath)
+    wordlist = args.wordlistPath
     statuscode = args.statusCode
     contentlength = args.ContentLength
     threads = args.threads
@@ -51,9 +57,14 @@ def main():
     time.sleep(2)
 
     # Initialize a test request
-    fuzzer = test.TestRequest(url)
+    tester = test.TestRequest(url)
 
-      # Locate the path to the wordlist
+    if tester.result == 'no':
+        logger.error(f"{RED} Exiting the script")
+        time.sleep(2)
+        sys.exit()
+
+    # Locate the path to the wordlist and load the wordlist to the file
     try:
         # Read all lines from the wordlist
         with open(wordlist, 'r') as paths:
@@ -75,6 +86,9 @@ def main():
         logger.error(f"{RED}{wordlist} FILE NOT FOUND !")
 
 
+    # Initialize Fuzzer Engine
+    fuzzer = fuzz.FuzzerEngine(args)
+    print(fuzzer.get_args())
 
 
 if __name__ == '__main__':
