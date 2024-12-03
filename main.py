@@ -29,7 +29,7 @@ def main():
     parser.add_argument('-u', '--url', help='Enter the URL of target and use FUZZ on the path to fuzz', dest='url')
     parser.add_argument('-w', '--wordlistPath', help='File to Custom wordlist', dest='wordlistPath')
     parser.add_argument('-e', '--encode', help='Encode your payloads (b64) ', dest='encode')
-    parser.add_argument('-mc', '--statusCode', default="GET", help='Enter Request status to match', dest='statusCode',
+    parser.add_argument('-mc', '--matchCode', default="GET", help='Enter Request status to match', dest='statusCode',
                         required=False)
     parser.add_argument('-ms', '--ContentLength', help='Enter Content length to match', dest='ContentLength',
                         required=False)

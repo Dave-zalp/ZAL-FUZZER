@@ -4,6 +4,8 @@ import requests
 import os
 import logging
 import sys
+from collections import defaultdict
+import threading
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -25,18 +27,27 @@ class FuzzerEngine:
         new_contents = dict()
         for name, value in vars(self.args).items():
             new_contents[name] = value
-        return new_contents
+        return defaultdict(lambda: None, new_contents)  # Missing keys return None
 
-    def get_statusCode(self, url):
+    def make_request(self, url):
+        req = self.get_args()
         try:
-            code = requests.request(method='GET', url=url).status_code
+            body = requests.request(
+                method='GET',
+                url=url,
+                headers=req['headers'],
+                cookies=req['cookies']
+            )
+            code = body.status_code
             color = RED if 400 <= code <= 599 else (YELLOW if 300 <= code <= 399 else GREEN)
-            return f"{color}[{code}]"
+            return {
+                'url': url,
+                'statusCode': code
+            }
         except ConnectionError:
             return f"{color}[404]"
 
-
-    def make_request(self):
+    def get_statuscode(self):
         req = self.get_args()
         try:
             f = open(req['wordlistPath'], 'r')
@@ -44,7 +55,7 @@ class FuzzerEngine:
             for x in f.readlines():
                 logger.info(f'{YELLOW}{start}')
                 start = start + 1
-                status_code = self.get_statusCode(x.strip())  # Preserve the color formatting
+                status_code = self.make_request(x.strip())  # Preserve the color formatting
                 logger.info(f'{GREEN}{x.strip()} {status_code}')
                 print("")
                 time.sleep(2)
@@ -55,8 +66,7 @@ class FuzzerEngine:
 
 
 
-
-
+#Add multithreading to this
 
 
 

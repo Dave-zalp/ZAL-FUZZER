@@ -42,7 +42,7 @@ class TestRequest:
                         break
                     logger.warning("Invalid input. Please enter 'yes' or 'no'.")
             else:
-                logger.info(f"{GREEN}[+] Request was successful with a {r.status_code} Status Code  ")
+                logger.info(f"{GREEN}[+] Host is active with a {r.status_code} Status Code  ")
             time.sleep(3)
 
         except requests.exceptions.ConnectionError:
