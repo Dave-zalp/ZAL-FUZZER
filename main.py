@@ -4,7 +4,7 @@ import logging
 import sys
 import time
 from Src import banner
-from Src import test,fuzz
+from Src import test, fuzz
 import argparse
 
 # Define color codes for logging
@@ -88,7 +88,8 @@ def main():
 
     # Initialize Fuzzer Engine
     fuzzer = fuzz.FuzzerEngine(args)
-    print(fuzzer.get_args())
+    # print(fuzzer.get_args())
+    print(fuzzer.make_request())
 
 
 if __name__ == '__main__':

@@ -27,3 +27,37 @@ class FuzzerEngine:
             new_contents[name] = value
         return new_contents
 
+    def get_statusCode(self, url):
+        try:
+            code = requests.request(method='GET', url=url).status_code
+            color = RED if 400 <= code <= 599 else (YELLOW if 300 <= code <= 399 else GREEN)
+            return f"{color}[{code}]"
+        except ConnectionError:
+            return f"{color}[404]"
+
+
+    def make_request(self):
+        req = self.get_args()
+        try:
+            f = open(req['wordlistPath'], 'r')
+            start = 1
+            for x in f.readlines():
+                logger.info(f'{YELLOW}{start}')
+                start = start + 1
+                status_code = self.get_statusCode(x.strip())  # Preserve the color formatting
+                logger.info(f'{GREEN}{x.strip()} {status_code}')
+                print("")
+                time.sleep(2)
+
+        except FileNotFoundError:
+            logger.error("Appended wordlist not Found !")
+
+
+
+
+
+
+
+
+
+
