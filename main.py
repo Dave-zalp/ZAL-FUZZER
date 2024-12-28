@@ -27,7 +27,7 @@ def main():
     # Set up argument parsing
     parser = argparse.ArgumentParser(description="ZALPARUS Web Fuzzer Configuration")
     parser.add_argument('-u', '--url', help='Enter the URL of target and use FUZZ on the path to fuzz', dest='url')
-    parser.add_argument('-w', '--wordlistPath', help='File to Custom wordlist', dest='wordlistPath')
+    parser.add_argument('-w', '--wordlistPath', default="Src/Wordlist/word1.txt", help='File to Custom wordlist', dest='wordlistPath')
     parser.add_argument('-mc', '--matchCode', default="GET", help='Enter Request status to match', dest='statusCode',
                         required=False)
     parser.add_argument('-th', '--threads', default=10, help='Enter Number of Threads', type=int, dest='threads',
