@@ -28,12 +28,9 @@ def main():
     parser = argparse.ArgumentParser(description="ZALPARUS Web Fuzzer Configuration")
     parser.add_argument('-u', '--url', help='Enter the URL of target and use FUZZ on the path to fuzz', dest='url')
     parser.add_argument('-w', '--wordlistPath', help='File to Custom wordlist', dest='wordlistPath')
-    parser.add_argument('-e', '--encode', help='Encode your payloads (b64) ', dest='encode')
     parser.add_argument('-mc', '--matchCode', default="GET", help='Enter Request status to match', dest='statusCode',
                         required=False)
-    parser.add_argument('-ms', '--ContentLength', help='Enter Content length to match', dest='ContentLength',
-                        required=False)
-    parser.add_argument('-th', '--threads', default="10", help='Enter Number of Threads', dest='threads',
+    parser.add_argument('-th', '--threads', default=10, help='Enter Number of Threads', type=int, dest='threads',
                         required=False)
     parser.add_argument('-H', '--headers', help='Enter Request Headers', dest='headers',
                         required=False)
@@ -46,7 +43,6 @@ def main():
     url = args.url
     wordlist = args.wordlistPath
     statuscode = args.statusCode
-    contentlength = args.ContentLength
     threads = args.threads
 
     # Print all Arguments
@@ -89,7 +85,7 @@ def main():
     # Initialize Fuzzer Engine
     fuzzer = fuzz.FuzzerEngine(args)
     # print(fuzzer.get_args())
-    print(fuzzer.make_request())
+    print(fuzzer.main())
 
 
 if __name__ == '__main__':
