@@ -42,26 +42,30 @@ class FuzzerEngine:
                     cookies=req['cookies'],
                 )
                 code = body.status_code
-                color = RED if 400 <= code <= 599 else (YELLOW if 300 <= code <= 399 else GREEN)
-                print(f"{color}URL: {url} | Status Code: {code}")
-                # return {
-                #     'url': url,
-                #     'statusCode': code
-                # }
+                self.log_output(url, code)
             except ConnectionError:
                 return f"{RED}[404]"
             finally:
                 queue.task_done()
 
     # Read URLs from file
-    def read_urls_from_file(self, filepath):
-
+    @staticmethod
+    def read_urls_from_file(filepath):
         try:
             with open(filepath, 'r') as file:
                 urls = [line.strip() for line in file if line.strip()]
             return urls
         except FileNotFoundError:
             logger.error("Appended wordlist not Found !")
+
+    def log_output(self, url, code):
+        match = self.get_args()['statusCode']
+        color = RED if 400 <= code <= 599 else (YELLOW if 300 <= code <= 399 else GREEN)
+        if match is not None:
+            if int(code) == int(match):
+                print(f"{color}URL: {url} | Status Code: {code}")
+        else:
+            print(f"{color}URL: {url} | Status Code: {code}")
 
     def main(self):
         req = self.get_args()
@@ -84,14 +88,5 @@ class FuzzerEngine:
         for thread in thread_list:
             thread.join()
 
-
-
-
-
-
-#Add request.sessions to enhance optimization
-#Add another function in the script that would be manipulating the output of the result based on argument conditions from the user.
-
-
-
-
+# Add request.sessions to enhance optimization
+# Add another function in the script that would be manipulating the output of the result based on argument conditions from the user.
