@@ -13,5 +13,12 @@ pip install requirements.txt
 python main.py -u https://google.com -w secret/fuzz.txt -mc 200 -th 10
 ```
 
+# Required Tasks
 
+## Features to Implement
+
+- [ ] Can Handle Post Request
+- [ ] Can Headers and Cookies to Request
+- [ ] Don't Bind the url with wordlist before fuzzing
+- [x] Request logs matchCodes and logs all codes if match isn't specified.
 
