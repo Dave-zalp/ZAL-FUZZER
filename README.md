@@ -18,7 +18,9 @@ python main.py -u https://google.com -w secret/fuzz.txt -mc 200 -th 10
 ## Features to Implement
 
 - [ ] Can Handle Post Request
-- [ ] Can Headers and Cookies to Request
+- [ ] Can Headers, Cookies and Proxies to Request
+- [ ] Can specify RandomUserAgent
+- [ ] Can Follow 302 Redirections
 - [ ] Don't Bind the url with wordlist before fuzzing
 - [x] Request logs matchCodes and logs all codes if match isn't specified.
 
