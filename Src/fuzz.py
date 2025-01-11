@@ -31,15 +31,14 @@ class FuzzerEngine:
         return defaultdict(lambda: None, new_contents)  # Missing keys return None
 
     def make_request(self, queue):
-        req = self.get_args()
         while not queue.empty():
             url = queue.get()
             try:
                 body = requests.request(
                     method='GET',
                     url=url,
-                    headers=req['headers'],
-                    cookies=req['cookies'],
+                    headers=self.res['headers'],
+                    cookies=self.res['cookies'],
                 )
                 code = body.status_code
                 self.log_output(url, code)
@@ -59,7 +58,7 @@ class FuzzerEngine:
             logger.error("Appended wordlist not Found !")
 
     def log_output(self, url, code):
-        match = self.get_args()['statusCode']
+        match = self.res['statusCode']
         color = RED if 400 <= code <= 599 else (YELLOW if 300 <= code <= 399 else GREEN)
         if match is not None:
             if int(code) == int(match):
@@ -68,10 +67,9 @@ class FuzzerEngine:
             print(f"{color}URL: {url} | Status Code: {code}")
 
     def main(self):
-        req = self.get_args()
-        threads = req['threads']
+        threads = self.res['threads']
         url_queue = Queue()
-        urls = self.read_urls_from_file(req['wordlistPath'])
+        urls = self.read_urls_from_file(self.res['wordlistPath'])
 
         # Add URLs to the queue
         for url in urls:
