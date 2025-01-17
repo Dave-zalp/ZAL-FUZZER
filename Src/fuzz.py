@@ -87,4 +87,3 @@ class FuzzerEngine:
             thread.join()
 
 # Add request.sessions to enhance optimization
-# Add another function in the script that would be manipulating the output of the result based on argument conditions from the user.

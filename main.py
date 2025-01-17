@@ -42,8 +42,6 @@ def main():
 
     url = args.url
     wordlist = args.wordlistPath
-    statuscode = args.statusCode
-    threads = args.threads
 
     # Print all Arguments
     for key, val in vars(args).items():
