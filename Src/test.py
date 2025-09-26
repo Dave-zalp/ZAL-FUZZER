@@ -12,45 +12,57 @@ logger = logging.getLogger()
 
 
 # Define color codes for logging
-RED = "\33[91m"
-GREEN = "\033[32m"
 YELLOW = "\033[93m"
+GREEN = "\033[92m"
+RED = "\033[91m"
+END = "\033[0m"
 
 
 class TestRequest:
-
-    def __init__(self,url):
+    def __init__(self, url: str):
         self.url = url
-        self.result = self.test_req()
+        self.result = None
 
+    def _prompt_continue(self) -> str:
+        # Prompt user for continuation (yes/no).
+        while True:
+            option = input("Do you wish to continue? [yes/no]: ").strip().lower()
+            if option in {"yes", "no"}:
+                return option
+            logger.warning("Invalid input. Please enter 'yes' or 'no'.")
 
-
-    def test_req(self):
-        option = 'yes'
+    def test_req(self) -> str:
+        """Check if the host is active and return 'yes' or 'no'."""
+        allowed_statuses = {200, 201, 204, 301, 302, 400}
 
         try:
-            logger.info(f"{YELLOW}[+] Checking if the host is active")
-            time.sleep(3)
-            r = requests.request(method='GET', url=self.url, allow_redirects=True)
+            logger.info(f"{YELLOW}[+] Checking if the host is active...{END}")
+            time.sleep(1)
 
-            if r.status_code not in {200, 400, 201, 204, 301, 302}:
-                logger.warning([f"[-] Host returned a {r.status_code} status Code "])
+            # Faster check using HEAD
+            try:
+                r = requests.head(self.url, allow_redirects=True, timeout=5)
+            except requests.RequestException:
+                r = requests.get(self.url, allow_redirects=True, timeout=5)
 
-                while True:
-                    option = input("Do you wish to continue? [yes/no]: ").strip().lower()
-                    if option in {"yes", "no"}:
-                        break
-                    logger.warning("Invalid input. Please enter 'yes' or 'no'.")
+            if r.status_code in allowed_statuses:
+                logger.info(f"{GREEN}[+] Host is active with status {r.status_code}{END}")
+                logger.info(f"{RED}[+] Logging out Test Response Info {END}")
+                time.sleep(4)
+                for key, value in r.headers.items():
+                    logger.info(f"{GREEN}[+] {YELLOW}{key} :  {value}{END}")
+                option = self._prompt_continue()
             else:
-                logger.info(f"{GREEN}[+] Host is active with a {r.status_code} Status Code  ")
-            time.sleep(3)
+                logger.warning(f"{RED}[-] Host returned status {r.status_code}{END}")
+                option = self._prompt_continue()
 
         except requests.exceptions.ConnectionError:
-            logger.error(f"{RED}[-] Connection Error/ Invalid Host")
-            option = 'no'
+            logger.error(f"{RED}[-] Connection Error / Invalid Host{END}")
+            option = "no"
 
-        except requests.exceptions.RequestException:
-            logger.error(f"{RED}[-] An Error Occurred")
-            option = 'no'
+        except requests.exceptions.RequestException as e:
+            logger.error(f"{RED}[-] Request failed: {e}{END}")
+            option = "no"
 
+        self.result = option
         return option

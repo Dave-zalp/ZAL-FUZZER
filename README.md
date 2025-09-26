@@ -17,7 +17,6 @@ python main.py -u https://google.com -w secret/fuzz.txt -mc 200 -th 10
 
 ## Features to Implement
 
-- [ ] Can Handle Post Request
 - [ ] Can Headers, Cookies and Proxies to Request
 - [ ] Can specify RandomUserAgent
 - [ ] Can Follow 302 Redirections

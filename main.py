@@ -1,5 +1,3 @@
-import json
-import os
 import logging
 import sys
 import time
@@ -19,10 +17,12 @@ logger = logging.getLogger()
 
 
 def main():
-    # Print the banner and the arguments
+    # Print the banner
     banner.print_banner()
-    logger.info(
-        f'{YELLOW}+----------------------------------------------------------------------------------------------+{END}')
+
+    # The seperator
+    separator = f"{YELLOW}+{'-' * 94}+{END}"
+    logger.info(separator)
 
     # Set up argument parsing
     parser = argparse.ArgumentParser(description="ZALPARUS Web Fuzzer Configuration")
@@ -45,16 +45,15 @@ def main():
 
     # Print all Arguments
     for key, val in vars(args).items():
-        logger.info(f'--> {YELLOW}{key}                      :{GREEN}{val}{END}')
-    logger.info(
-        f'{YELLOW}+----------------------------------------------------------------------------------------------+{END}\n')
+        logger.info(f'--> {YELLOW}{key}{" " * 9}:{GREEN}{val}{END}')
+    logger.info(separator)
     time.sleep(2)
 
     # Initialize a test request
     tester = test.TestRequest(url)
 
-    if tester.result == 'no':
-        logger.error(f"{RED} Exiting the script")
+    if tester.test_req() == 'no':
+        logger.error(f"{YELLOW} Exiting the script")
         time.sleep(2)
         sys.exit()
 
@@ -78,6 +77,7 @@ def main():
 
     except FileNotFoundError:
         logger.error(f"{RED}{wordlist} FILE NOT FOUND !")
+        sys.exit()
 
 
     # Initialize Fuzzer Engine
