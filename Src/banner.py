@@ -1,4 +1,5 @@
 import time
+import random
 
 RED = "\33[91m"
 BLUE = "\33[94m"
@@ -8,8 +9,14 @@ PURPLE = '\033[0;35m'
 CYAN = "\033[36m"
 END = "\033[0m"
 
+colors = [RED, BLUE, GREEN, YELLOW, PURPLE, CYAN, END]
+options = random.choice(colors)
+
+
+
+
 def print_banner():
-     banner = f"""{RED}
+     banner = f"""{options}
                 
                 ███████╗ █████╗ ██╗      ███████╗██╗   ██╗███████╗███████╗███████╗██████╗ 
                 ╚══███╔╝██╔══██╗██║      ██╔════╝██║   ██║╚══███╔╝╚══███╔╝██╔════╝██╔══██╗
@@ -25,6 +32,6 @@ def print_banner():
                 
                 """
      print(banner)
-     time.sleep(2)
+     time.sleep(3)
 
 
